@@ -10,3 +10,20 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+
+.form-control {
+    border: 0;
+    text-align: center;
+}
+
+.list-group-item:hover .delete-button {
+    display: inline-block;
+    color:red;
+    border-color: transparent;
+    background-color: transparent;
+
+}
+
+.delete-button {
+    display:none;
+}
