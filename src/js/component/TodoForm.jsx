@@ -1,14 +1,12 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-export const TodoForm = ({ addTodo }) => {
+export const TodoForm = ({ todos, setTodos, addTodo }) => {
     const [input, setInput] = useState('');
-    const [todos, setTodos] = useState([]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (input){
-            const newTodos = [...todos, input];
-            setTodos(newTodos);
             addTodo(input);
             setInput('');
         }
@@ -18,6 +16,7 @@ export const TodoForm = ({ addTodo }) => {
         const updateTodos = todos.filter((_, i) => i !== index);
         setTodos(updateTodos);
     };
+
         
     return (
         <div className="container text-center">
@@ -36,3 +35,11 @@ export const TodoForm = ({ addTodo }) => {
     
     )
 };
+
+TodoForm.propTypes = {
+    todos: PropTypes.array.isRequired,
+    setTodos: PropTypes.func.isRequired,
+    addTodo: PropTypes.func.isRequired
+}
+
+export default TodoForm;
