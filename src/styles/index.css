@@ -27,3 +27,32 @@
 .delete-button {
     display:none;
 }
+
+.background-box {
+    position: relative;
+    width: 93%;
+    height: 10%;
+    z-index: -1;
+    top: -15px;
+    left: 4%;
+    color: white;
+    background: white;
+    border: 1px solid rgb(211, 211, 211); 
+    box-shadow: 4px 2px 15px gray;   
+}
+
+.background-box2 {
+    position: relative;
+    width: 85%;
+    height: 10%;
+    z-index: -2;
+    top: -30px;
+    left: 8%;
+    color: white;
+    border: 1px solid rgb(211, 211, 211); 
+    box-shadow: 4px 5px 15px gray;
+}
+
+ul {
+    box-shadow: 4px 5px 15;
+}

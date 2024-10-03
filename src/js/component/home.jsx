@@ -1,76 +1,71 @@
 import React, { useState, useEffect } from "react";
-
-//include images into your bundles
 import { TodoForm } from "./TodoForm";
 
-//create your first component
 const Home = () => {
-	const [todos, setTodos] = useState([]);
+    const [todos, setTodos] = useState([]);
 
-	const addTodo = (newTodo) => {
-		setTodos([...todos, newTodo]);
-	}
+    const addTodo = (newTodo) => {
+        setTodos((oldValue) => [...oldValue, newTodo]);
+    };
 
-	useEffect(() => {
-        getData()
-    }, [])
+    useEffect(() => {
+        getData();
+    }, []);
+
+    async function createUser() {
+        const responseCreate = await fetch("https://playground.4geeks.com/todo/users/helen", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ todos: [] }),
+        });
+        
+        if (responseCreate.ok) {
+            console.log("User created");
+        } else {
+            console.log("User not created");
+        }
+    }
 
     async function getData() {
-
-        let response = await fetch("https://playground.4geeks.com/todo/user/helen", {
+        const response = await fetch("https://playground.4geeks.com/todo/users/helen", {
             method: "GET"
         });
 
-        if (response.status == 404) {
-            await createUser();
-            response = await fetch("https://playground.4geeks.com/todo/user/helen");
+        if (response.status === 200) {
+            const data = await response.json();
+            if (data && data.todos) {
+                setTodos(data.todos);
+            }
+        } else if (response.status === 404) {
+            console.log("User not found, you can create it while adding a todo.");
         }
-        let data = await response.json();
-        console.log(data);
-		if (data && data.todos) {
-			setTodos(data.todos);
-		} else {
-			console.log("not found")
-		}
     }
 
-    
-    
-    async function createUser() {
-        let responseCreate = await fetch("https://playground.4geeks.com/todo/user/helen", {
-            method: "POST",
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ todos: [] }),
+    const deleteTodo = async (index) => {
+        const updateTodos = todos.filter((_, i) => i !== index);
+
+        const response = await fetch("https://playground.4geeks.com/todo/users/helen", {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ todos: todos.filter((_, i) => i !== index) }),
         });
-		console.log("User created:", responseCreate)
         
-        if (responseCreate.ok) {
-            console.log("User created")
+        if (response.ok) {
+            setTodos(updateTodos);
         } else {
-            console.log("User not created")
+            console.log("Todo not deleted");
         }
-    } 
+    };
 
-    // async function deleteUser() {
-    //     let responseDelete = await fetch("https://playground.4geeks.com/todo/user/helen", {
-    //         method: "DELETE"
-    //     });
-    //     if (responseDelete.ok) {
-    //         console.log("User deleted")
-    //     } else {
-    //         console.log("User not deleted")
-    //     }
-        
-    // }
-
-
-	return (
-		<>
-		<TodoForm addTodo={addTodo} setTodos={setTodos} todos={todos}/>
-		</>
-	);
+    return (
+        <>
+            <TodoForm addTodo={addTodo} setTodos={setTodos} todos={todos} deleteTodo={deleteTodo} createUser={createUser} />
+        </>
+    );
 };
 
 export default Home;
