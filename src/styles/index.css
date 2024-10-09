@@ -10,10 +10,18 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+body {
+    background-color: #dadada;
+}
 
 .form-control {
     border: 0;
-    text-align: center;
+    text-align: left;
+}
+
+.list-group-item {
+    border-radius: 0 !important;
+    text-align: left;
 }
 
 .list-group-item:hover .delete-button {
@@ -21,36 +29,51 @@
     color:red;
     border-color: transparent;
     background-color: transparent;
+}
+.left-item-remain {
+    text-align: left;
+    height: 28px;
+    font-size: 11px;
+    color: gray;
+}
 
+.title {
+    color:rgb(255, 118, 118);
+    font-size: 50px;
+    font-weight: normal;
 }
 
 .delete-button {
-    display:none;
+    display: none;
+    top: 0; 
+    right: 10px; 
+    position: absolute;
+    font-size: 20px;
 }
 
 .background-box {
     position: relative;
-    width: 93%;
-    height: 10%;
+    width: 97%;
+    height: 20px;
     z-index: -1;
     top: -15px;
-    left: 4%;
-    color: white;
+    left: 2%;
+    color: transparent;
     background: white;
-    border: 1px solid rgb(211, 211, 211); 
+    border: 1px solid rgb(211, 211, 211);
     box-shadow: 4px 2px 15px gray;   
 }
 
 .background-box2 {
     position: relative;
-    width: 85%;
-    height: 10%;
+    width: 94%;
+    height: 21px;
     z-index: -2;
     top: -30px;
-    left: 8%;
+    left: 4%;
     color: white;
-    border: 1px solid rgb(211, 211, 211); 
-    box-shadow: 4px 5px 15px gray;
+    border: 1px solid rgba(211, 211, 211, 0.678); 
+    box-shadow: 4px 5px 15px rgb(95, 95, 95);
 }
 
 ul {
